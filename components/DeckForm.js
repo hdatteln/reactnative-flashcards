@@ -9,7 +9,7 @@ class DeckForm extends Component {
     return (
       <View style={styles.container}>
         <View style={[styles.bodyContainer]}>
-          <Text style={styles.screenHeading}>Add a new Deck</Text>
+          <Text style={styles.screenHeading}>Add a New Deck</Text>
           <Text style={styles.screenDesc}>Enter the title of your new deck:</Text>
           <TextInput
             placeholder='Deck Title'

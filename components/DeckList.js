@@ -34,6 +34,7 @@ class DeckList extends Component {
                     { entryId: idx }
                   )}
                   bottomDivider
+                  chevron
                 />
               );
             })
