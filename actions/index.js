@@ -1,18 +1,36 @@
-export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-export const ADD_QUESTION = 'ADD_QUESTION';
+import { getDecks } from '../utils/helpers';
 
-export function receiveQuestions (questions) {
+export const RECEIVE_DECKS = 'RECEIVE_DECKS';
+export const ADD_DECK = 'ADD_DECK';
+export const REMOVE_DECK = 'REMOVE_DECK';
+export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK';
+
+export function receiveDecks(decks) {
   return {
-    type: RECEIVE_QUESTIONS,
-    questions
-  }
-
+    type: RECEIVE_DECKS,
+    decks
+  };
 }
 
-export function addQuestion (question) {
+export function addDeck(name) {
   return {
-    type: ADD_QUESTION,
-    question
-  }
-
+    type: ADD_DECK,
+    name
+  };
 }
+
+export function removeDeck(id) {
+  return {
+    type: REMOVE_DECK,
+    id
+  };
+}
+
+export function addCardToDeck(id, card) {
+  return {
+    type: ADD_CARD_TO_DECK,
+    deckId,
+    card
+  };
+}
+

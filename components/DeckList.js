@@ -2,52 +2,62 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { ListItem } from 'react-native-elements';
+import { receiveDecks } from '../actions/index';
+import { getDecks } from '../utils/helpers';
 
 class DeckList extends Component {
+
+  componentDidMount () {
+    return getDecks().then(decks => {
+      this.props.dispatch(receiveDecks(decks));
+    });
+  }
+
+  state = {};
+
   render () {
-    const { navigation }= this.props;
-    const decks = [
-      {
-        id: '1234',
-        title: 'Deck 1'
-      },
-      {
-        id: '1235',
-        title: 'Deck 2'
-      }
-    ];
+    const {navigation, decks} = this.props;
+
     return (
-      <View style={styles.container}>
-        <View style={styles.bodyContainer}>
-          <Text style={styles.screenHeading}>Available Decks</Text>
+
+      decks && Object.keys(decks).length === 0
+        ? <View style={styles.container}>
+          <View style={styles.bodyContainer}>
+            <Text style={styles.screenHeading}>No Decks Available Yet!</Text>
+          </View>
+          </View>
+        : <View style={styles.container}>
+          <View style={styles.bodyContainer}>
+            <Text style={styles.screenHeading}>Available Decks</Text>
+          </View>
+          <View style={[styles.listContainer]}>
+            {
+              Object.values(decks).map((deck, idx) => {
+                console.log(deck);
+                return (
+                  <ListItem
+                    key={idx}
+                    title={deck.name}
+                    onPress={() => navigation.navigate(
+                      'Deck',
+                      {entryId: idx}
+                    )}
+                    bottomDivider
+                    chevron
+                  />
+                );
+              })
+            }
+          </View>
         </View>
 
-        <View style={[styles.listContainer]}>
-          {
-            decks.map((deck, idx) => {
-              return (
-                <ListItem
-                  key={idx}
-                  title={deck.title}
-                  onPress={() => navigation.navigate(
-                    'Deck',
-                    { entryId: idx }
-                  )}
-                  bottomDivider
-                  chevron
-                />
-              );
-            })
-          }
-        </View>
-      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   listContainer: {
     flex: 1,
@@ -63,7 +73,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 20,
     marginLeft: 20
-  },
+  }
 });
 
-export default connect()(DeckList);
+const mapStateToProps = state => ({decks: state});
+
+export default connect(
+  mapStateToProps
+)(DeckList);

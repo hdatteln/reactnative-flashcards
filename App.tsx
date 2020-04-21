@@ -12,9 +12,12 @@ import Quiz from './components/Quiz'
 
 const Stack = createStackNavigator();
 function MainNavigator() {
+
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Decks" component={TabNav} />
+            <Stack.Screen name="Decks" component={TabNav} options={{
+                title: 'Mobile Flashard',
+            }}/>
             <Stack.Screen name="CardForm" component={CardForm} options={{
                 title: 'Add Card',
             }} />
