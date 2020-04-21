@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
-class DeckListView extends Component {
+class DeckForm extends Component {
   render () {
     return (
       <View>
         <Text>
-          Deck
+          DeckForm
         </Text>
       </View>
     );
   }
 }
 
-export default connect()(DeckListView);
+export default connect()(DeckForm);
