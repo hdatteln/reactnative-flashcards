@@ -1,22 +1,43 @@
-import { ADD_QUESTION, RECEIVE_QUESTIONS } from '../actions';
+import {
+  RECEIVE_DECKS,
+  ADD_DECK,
+  REMOVE_DECK,
+  ADD_CARD_TO_DECK
+} from '../actions/index';
 
-function questions (state = {}, action) {
+
+export default function decks(state = {}, action) {
   switch (action.type) {
-    case RECEIVE_QUESTIONS:
+    case RECEIVE_DECKS:
       return {
         ...state,
-        ...action.entries
+        ...action.decks
       };
-    case ADD_QUESTION:
+    case ADD_DECK:
+      const { name } = action;
       return {
         ...state,
-        ...action.entry
+        [name]: {
+          name,
+          questions: []
+        }
+      };
+    case REMOVE_DECK:
+      const { id } = action;
+      // return ({ [id]: value, ...remainingDecks } = state);
+      const { [id]: value, ...remainingDecks } = state;
+      console.log(remainingDecks);
+      return remainingDecks;
+    case ADD_CARD_TO_DECK:
+      const { deckId, card } = action;
+      return {
+        ...state,
+        [deckId]: {
+          ...state[deckId],
+          questions: [...state[deckId].questions].concat(card)
+        }
       };
     default:
       return state;
-
   }
-
 }
-
-export default questions;
