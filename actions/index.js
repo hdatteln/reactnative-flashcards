@@ -26,7 +26,7 @@ export function removeDeck(id) {
   };
 }
 
-export function addCardToDeck(id, card) {
+export function addCardToDeck(deckId, card) {
   return {
     type: ADD_CARD_TO_DECK,
     deckId,
