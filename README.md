@@ -33,7 +33,7 @@ If no flashcard decks have been created yet, this page shows an according messag
 Otherwise, it shows a list of available decks. When clicking on a deck, the Deck Details view opens.
 New decks can be added by clicking the 'Add Deck' bottom tab navigation option.  
 
-![](images/fcapp_decklist.png)  
+<img src="images/fcapp_decklist.png" width="80%">.
 
 ### Add Deck View
 Simply enter a title for the new deck and click the button. You can add cards later.  
