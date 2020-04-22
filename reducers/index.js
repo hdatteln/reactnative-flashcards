@@ -1,12 +1,6 @@
-import {
-  RECEIVE_DECKS,
-  ADD_DECK,
-  REMOVE_DECK,
-  ADD_CARD_TO_DECK
-} from '../actions/index';
+import { ADD_CARD_TO_DECK, ADD_DECK, RECEIVE_DECKS, REMOVE_DECK } from '../actions/index';
 
-
-export default function decks(state = {}, action) {
+export default function decks (state = {}, action) {
   switch (action.type) {
     case RECEIVE_DECKS:
       return {
@@ -14,7 +8,7 @@ export default function decks(state = {}, action) {
         ...action.decks
       };
     case ADD_DECK:
-      const { name } = action;
+      const {name} = action;
       return {
         ...state,
         [name]: {
@@ -23,13 +17,11 @@ export default function decks(state = {}, action) {
         }
       };
     case REMOVE_DECK:
-      const { id } = action;
-      // return ({ [id]: value, ...remainingDecks } = state);
-      const { [id]: value, ...remainingDecks } = state;
-      console.log(remainingDecks);
+      const {id} = action;
+      const {[id]: value, ...remainingDecks} = state;
       return remainingDecks;
     case ADD_CARD_TO_DECK:
-      const { deckId, card } = action;
+      const {deckId, card} = action;
       return {
         ...state,
         [deckId]: {

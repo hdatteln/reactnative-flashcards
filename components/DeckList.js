@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { ListItem } from 'react-native-elements';
 import { receiveDecks } from '../actions/index';
 import { getDecks } from '../utils/helpers';
+import styles from '../styles/appStyles';
+import { AppLoading} from 'expo'
 
 class DeckList extends Component {
 
   componentDidMount () {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
 
     getDecks()
       .then((decks) => {
-      dispatch(receiveDecks(decks ));
-    }).then(() => this.setState(() => ({ready: true})))
+        dispatch(receiveDecks(decks));
+      }).then(() => this.setState(() => ({ready: true})));
   }
 
   state = {
@@ -22,7 +24,11 @@ class DeckList extends Component {
 
   render () {
     const {navigation, decks} = this.props;
-    const { ready } = this.state;
+    const {ready} = this.state;
+
+    if (ready === false) {
+      return <AppLoading />
+    }
 
     return (
 
@@ -32,7 +38,7 @@ class DeckList extends Component {
             <Text style={styles.screenHeading}>No Decks Available Yet!</Text>
             <Text style={styles.screenDesc}>Tab 'Add Decks' to add a new deck of flashcards.</Text>
           </View>
-          </View>
+        </View>
         : <View style={styles.container}>
           <View style={styles.bodyContainer}>
             <Text style={styles.screenHeading}>Available Decks</Text>
@@ -57,40 +63,13 @@ class DeckList extends Component {
             }
           </ScrollView>
         </View>
-
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  listContainer: {
-    flex: 1,
-    marginTop: 30,
-    marginLeft: 30,
-    marginRight: 30
-  },
-  screenHeading: {
-    fontSize: 25
-  },
-  screenDesc: {
-    marginTop: 30,
-    marginBottom: 30
-  },
-  bodyContainer: {
-    alignItems: 'center',
-    marginTop: 50,
-    marginRight: 20,
-    marginLeft: 20
-  }
-});
-
 function mapStateToProps (decks) {
-  return {decks}
+  return {decks};
 }
-
 
 export default connect(
   mapStateToProps

@@ -6,6 +6,10 @@ function formatResults (results) {
   return JSON.parse(results);
 }
 
+export function getRoundedPercentage (part, whole) {
+  return Math.round(part / whole * 100);
+}
+
 export function getDecks () {
   return AsyncStorage.getItem(DECKS_APP_STORAGE_KEY).then(formatResults);
 }
@@ -50,6 +54,4 @@ export function saveCardToDeck (id, card) {
         }
       }));
     });
-
 }
-

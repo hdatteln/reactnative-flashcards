@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { CommonActions } from '@react-navigation/native';
 import { removeDeck } from '../actions';
 import { deleteDeck } from '../utils/helpers';
+import styles from '../styles/appStyles';
 
 class Deck extends Component {
   toHome = () => {
@@ -41,36 +41,35 @@ class Deck extends Component {
         </View>
       );
     }
-    console.log(currentDeck.questions);
     const numQuestions = currentDeck.questions.length;
     const cardCount = numQuestions === 1 ? numQuestions + ' Card' : numQuestions + ' Cards';
 
     return (
       <View style={styles.container}>
-        <View style={[styles.bodyContainer]}>
+        <View style={styles.bodyContainer}>
           <Text style={styles.screenHeading}>
             {currentDeck.name}
           </Text>
           <Text style={styles.screenDesc}>{cardCount}</Text>
-          <View style={styles.btnSection}>
-            <Button
-              title="Add Card"
-              style={styles.deckBtn}
-              onPress={() => navigation.navigate(
-                'CardForm',
-                {deckDetails: deckDetails}
-              )}
-            />
-            {numQuestions > 0 && <Button
-              title="Start Quiz"
-              style={styles.deckBtn}
-              onPress={() => navigation.navigate(
-                'Quiz',
-                {deckDetails: deckDetails}
-              )}
-            />}
-
-          </View>
+          <TouchableOpacity
+            title="Add Card"
+            style={styles.deckBtn}
+            onPress={() => navigation.navigate(
+              'CardForm',
+              {deckDetails: deckDetails}
+            )}
+          ><Text style={styles.btnTxt}>Add Card</Text>
+          </TouchableOpacity>
+          {numQuestions > 0 && <TouchableOpacity
+            title="Start Quiz"
+            style={styles.deckBtn}
+            onPress={() => navigation.navigate(
+              'Quiz',
+              {deckDetails: deckDetails}
+            )}
+          ><Text style={styles.btnTxt}>Start Quiz</Text>
+          </TouchableOpacity>
+          }
 
           <TouchableOpacity
             style={styles.deleteBtn}
@@ -83,38 +82,6 @@ class Deck extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  bodyContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 50,
-    marginRight: 20,
-    marginLeft: 20
-  },
-  deckBtn: {
-    width: 300,
-    margin: 10
-  },
-  screenHeading: {
-    fontSize: 25
-  },
-  screenDesc: {
-    marginTop: 30,
-    marginBottom: 30
-  },
-  btnSection: {
-    marginBottom: 50
-  },
-  deleteBtn: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10
-  }
-});
 
 function mapStateToProps (decks) {
   return {decks};
