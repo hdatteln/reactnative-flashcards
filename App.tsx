@@ -10,6 +10,7 @@ import CardForm from './components/CardForm'
 import Deck from './components/Deck'
 import Quiz from './components/Quiz'
 import styles from './styles/appStyles'
+import { setLocalNotification } from './utils/helpers'
 
 const Stack = createStackNavigator();
 
@@ -33,12 +34,17 @@ function MainNavigator() {
     );
 }
 
-export default function App() {
-    return (
-        <Provider store={createStore(reducer)}>
-            <View style={styles.appContainer}>
-                <NavigationContainer><MainNavigator/></NavigationContainer>
-            </View>
-        </Provider>
-    );
+export default class App extends React.Component {
+    componentDidMount() {
+        setLocalNotification()
+    }
+    render() {
+        return (
+            <Provider store={createStore(reducer)}>
+                <View style={styles.appContainer}>
+                    <NavigationContainer><MainNavigator/></NavigationContainer>
+                </View>
+            </Provider>
+        )
+    }
 }

@@ -38,6 +38,24 @@ export default StyleSheet.create({
     marginRight: 20,
     marginLeft: 20
   },
+  listView: {
+    flexDirection: 'row',
+    backgroundColor: appColors.white,
+    padding: 8,
+    margin: 2,
+    height: 40,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+  deckListItem: {
+    width: 280,
+    fontSize: 16,
+  },
+  listIcon: {
+    alignSelf: 'flex-end'
+  },
+
 
   /* CardForm */
 

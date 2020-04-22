@@ -1,6 +1,8 @@
 import { AsyncStorage } from 'react-native';
-
+import { Notifications } from 'expo'
+import * as Permissions from 'expo-permissions';
 const DECKS_APP_STORAGE_KEY = 'UdacityFlashcards:decks';
+const NOTIFICATION_KEY = 'UdacityFlashcards:notifications';
 
 function formatResults (results) {
   return JSON.parse(results);
@@ -54,4 +56,59 @@ export function saveCardToDeck (id, card) {
         }
       }));
     });
+}
+
+
+export function clearLocalNotification () {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
+    .catch(err => {
+      console.log('ERR', err)
+    })
+}
+
+function createNotification () {
+  return {
+    title: 'You have not studied today!',
+    body: "👋 don't forget to complete your daily quiz!",
+    ios: {
+      sound: true,
+    },
+    android: {
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate: true,
+    }
+  }
+}
+
+export function setLocalNotification () {
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then(JSON.parse)
+    .then((data) => {
+      if (data === null) {
+        Permissions.getAsync(Permissions.NOTIFICATIONS)
+          .then(({ status }) => {
+            if (status === 'granted') {
+              Notifications.cancelAllScheduledNotificationsAsync();
+
+              let tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(20);
+              tomorrow.setMinutes(0,0,0,);
+
+              Notifications.scheduleLocalNotificationAsync(
+                createNotification(),
+                {
+                  time: tomorrow,
+                  repeat: 'day',
+                }
+              );
+
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+            }
+          })
+      }
+    })
 }
