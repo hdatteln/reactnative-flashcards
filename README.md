@@ -32,11 +32,10 @@ More info on the Expo CLI can be found [here](https://docs.expo.io/versions/late
 If no flashcard decks have been created yet, this page shows an according message. 
 Otherwise, it shows a list of available decks. When clicking on a deck, the Deck Details view opens.
 New decks can be added by clicking the 'Add Deck' bottom tab navigation option.  
-
 ![](images/fcapp_decklist.png)  
 
 ### Add Deck View
-Simply enter a title for the new deck and click the button. You can add cards later.  
+Simply enter a title for the new deck and click the button. You can add cards later.    
 ![](images/fcapp_adddeck.png)  
 
 ### Deck Details View
