@@ -26,7 +26,7 @@ class QuizAnswer extends Component {
             <TouchableOpacity
               title="Got it wrong"
               name="incorrect"
-              style={styles.quiz2FormBtn}
+              style={styles.quiz2FormBtnRed}
               onPress={validateNotOk}
             ><Text style={styles.btnTxt}>Got it wrong</Text></TouchableOpacity>
           </View>

@@ -5,7 +5,14 @@ import { ListItem } from 'react-native-elements';
 import { receiveDecks } from '../actions/index';
 import { getDecks } from '../utils/helpers';
 import styles from '../styles/appStyles';
-import { AppLoading} from 'expo'
+import * as SplashScreen from 'expo-splash-screen';
+
+const AppLoading = () => {
+  SplashScreen.preventAutoHideAsync().catch(() => {});
+  return () => {
+    SplashScreen.hideAsync().catch(() => {});
+  };
+};
 
 class DeckList extends Component {
 
@@ -27,7 +34,7 @@ class DeckList extends Component {
     const {ready} = this.state;
 
     if (ready === false) {
-      return <AppLoading />
+      return <AppLoading/>;
     }
 
     return (
