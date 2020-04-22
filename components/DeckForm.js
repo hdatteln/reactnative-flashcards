@@ -8,17 +8,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import {CommonActions} from '@react-navigation/native';
 
 class DeckForm extends Component {
-  /*
-  * 'Deck 1' : {
-  *   name: 'Deck 1',
-  *   questions: [
-  *     {'q': 'sdfds', 'a': 'sdfsd'},
-  *     {'q': 'sweweds', 'a': 'syrytdfsd'}
-  *   ]
-  * }
-  *
-  * */
-
 
   state = {
     name: ''
@@ -26,12 +15,10 @@ class DeckForm extends Component {
 
   handleChange = (name) => {
     this.setState({ name });
-    console.log('state',this.state);
   };
 
   createDeck = () => {
     const key = this.state.name;
-
     this.props.dispatch(addDeck(key));
     this.setState(() => ({
       name: ''
@@ -48,32 +35,29 @@ class DeckForm extends Component {
       }))
   };
 
-  deleteDeck = () => {
-    console.log('delete deck')
-  };
-
   render () {
-    console.log(this.props);
     const {navigation} = this.props;
     return (
-      <KeyboardAwareScrollView style={styles.container}>
+      <View style={styles.container}>
         <View style={[styles.bodyContainer]}>
           <Text style={styles.screenHeading}>Add a New Deck</Text>
-          <TextInput
-            placeholder='Enter a Deck Title'
-            value={this.state.name}
-            style={styles.formInput}
-            onChangeText={this.handleChange}
+          <KeyboardAwareScrollView>
+            <TextInput
+              placeholder='Enter a Deck Title'
+              value={this.state.name}
+              style={styles.formInput}
+              onChangeText={this.handleChange}
 
-          />
+            />
+            <Button
+              title="Create Deck"
+              style={styles.deckFormBtn}
+              onPress={this.createDeck}
+            />
+          </KeyboardAwareScrollView>
 
-          <Button
-            title="Create Deck"
-            style={styles.deckFormBtn}
-            onPress={this.createDeck}
-          />
          </View>
-      </KeyboardAwareScrollView>
+      </View>
     );
   }
 }
