@@ -28,7 +28,7 @@ class TabNav extends Component {
             },
           })}
           tabBarOptions={{
-            activeTintColor: '#0080ff',
+            activeTintColor: '#609c4f',
           }}>
           <Tab.Screen
             name="DeckList"

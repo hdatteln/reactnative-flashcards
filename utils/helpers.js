@@ -7,7 +7,7 @@ function formatResults (results) {
 }
 
 export function getRoundedPercentage (part, whole) {
-  return Math.round( part / whole * 100)
+  return Math.round(part / whole * 100);
 }
 
 export function getDecks () {
@@ -54,6 +54,4 @@ export function saveCardToDeck (id, card) {
         }
       }));
     });
-
 }
-
