@@ -16,7 +16,7 @@ function MainNavigator() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Decks" component={TabNav} options={{
-                title: 'Mobile Flashard',
+                title: 'Mobile Flashards',
             }}/>
             <Stack.Screen name="CardForm" component={CardForm} options={{
                 title: 'Add Card',

@@ -9,14 +9,26 @@ class Quiz extends Component {
   };
 
   render () {
-    const {navigation} = this.props;
+    const {navigation, route} = this.props;
+    const { deckDetails } = route.params;
     const {quizPage} = this.state;
+    const numQuestions = deckDetails.questions.length;
     console.log(quizPage);
+    if (numQuestions === 0) {
+      return (
+        <View style={styles.container}>
+          <View style={[styles.bodyContainer]}>
+            <Text style={styles.screenHeading}>No Quiz Questions Yet</Text>
+          </View>
+        </View>
+      )
+    }
+
     if (quizPage === 'answer') {
       return (
         <View style={styles.container}>
           <View style={[styles.bodyContainer]}>
-            <Text style={styles.screenHeading}>Card 1 of 10</Text>
+            <Text style={styles.screenHeading}>Card 1 of {numQuestions}</Text>
             <Text style={styles.screenDesc}>10% completed</Text>
             <Divider style={{margin: 40, height: 2, width: 300, backgroundColor: '#e1e8ee'}}/>
             <Text style={styles.quizContentText}>Answer:</Text>

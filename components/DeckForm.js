@@ -36,8 +36,8 @@ class DeckForm extends Component {
     this.setState(() => ({
       name: ''
     }));
-    saveDeckTitle( key );
     this.toHome();
+    saveDeckTitle(key);
 
   };
 
@@ -61,6 +61,7 @@ class DeckForm extends Component {
           <Text style={styles.screenHeading}>Add a New Deck</Text>
           <TextInput
             placeholder='Enter a Deck Title'
+            value={this.state.name}
             style={styles.formInput}
             onChangeText={this.handleChange}
 
