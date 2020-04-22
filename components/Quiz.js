@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { Divider } from 'react-native-elements';
 import QuizScore from './QuizScore';
 import QuizAnswer from './QuizAnswer';
-import { getRoundedPercentage } from '../utils/helpers';
+import { getRoundedPercentage, clearLocalNotification, setLocalNotification } from '../utils/helpers';
 import styles from '../styles/appStyles';
+
 
 class Quiz extends Component {
   state = {
@@ -42,9 +43,11 @@ class Quiz extends Component {
     const deck = decks[deckDetails.name];
     const {score, currentQuestionIdx} = this.state;
     const newScore = isCorrect ? score + 1 : score;
-    console.log('Score', newScore, isCorrect);
     if ((currentQuestionIdx + 1) === deck.questions.length) {
       // all questions processed; show score
+      clearLocalNotification()
+        .then(setLocalNotification);
+
       this.setState({
         score: newScore,
         quizPage: 'score'

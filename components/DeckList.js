@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Animated, FlatList, SafeAreaView, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { ListItem } from 'react-native-elements';
 import { receiveDecks } from '../actions/index';
 import { getDecks } from '../utils/helpers';
 import styles from '../styles/appStyles';
-import * as SplashScreen from 'expo-splash-screen';
-
-const AppLoading = () => {
-  SplashScreen.preventAutoHideAsync().catch(() => {});
-  return () => {
-    SplashScreen.hideAsync().catch(() => {});
-  };
-};
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class DeckList extends Component {
+  constructor (props) {
+    super(props);
+    this.clickListItem = this.clickListItem.bind(this);
+  }
 
   componentDidMount () {
     const {dispatch} = this.props;
@@ -22,20 +18,32 @@ class DeckList extends Component {
     getDecks()
       .then((decks) => {
         dispatch(receiveDecks(decks));
-      }).then(() => this.setState(() => ({ready: true})));
+      })
+      .then(() => this.setState(() => ({ready: true})));
+
   }
 
   state = {
-    ready: false
+    bounceValue: new Animated.Value(1)
+  };
+
+  clickListItem = (deck) => {
+    const {navigation} = this.props;
+    const {bounceValue} = this.state;
+    Animated.sequence([
+      Animated.timing(bounceValue, {duration: 500, toValue: 2}),
+      Animated.spring(bounceValue, {toValue: 1, friction: 4})
+    ]).start();
+
+    navigation.navigate(
+      'Deck',
+      {deckDetails: deck}
+    );
   };
 
   render () {
-    const {navigation, decks} = this.props;
-    const {ready} = this.state;
-
-    if (ready === false) {
-      return <AppLoading/>;
-    }
+    const {decks} = this.props;
+    const {ready, bounceValue} = this.state;
 
     return (
 
@@ -50,25 +58,26 @@ class DeckList extends Component {
           <View style={styles.bodyContainer}>
             <Text style={styles.screenHeading}>Available Decks</Text>
           </View>
-          <ScrollView style={[styles.listContainer]}>
-            {
-              Object.values(decks).map((deck, idx) => {
-                return (
+          <SafeAreaView style={[styles.listContainer]}>
+            <FlatList
+              data={Object.values(decks).map((deck) => { return deck;})}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item, index}) => (
+                <View
+                  key={item.name}
+                  style={styles.listView}
+                >
+                  <Animated.Text
+                    style={[styles.deckListItem, {transform: [{scale: bounceValue}]}]}
+                    onPress={() => this.clickListItem(item)}
+                  >
+                    {item.name + ' (' + item.questions.length + ')'}
+                  </Animated.Text>
+                    <Icon key={'icon'+item.name} name="chevron-right" size={16}/>
+                </View>)}
+            />
 
-                  <ListItem
-                    key={idx}
-                    title={deck.name}
-                    onPress={() => navigation.navigate(
-                      'Deck',
-                      {deckDetails: deck}
-                    )}
-                    bottomDivider
-                    chevron
-                  />
-                );
-              })
-            }
-          </ScrollView>
+          </SafeAreaView>
         </View>
     );
   }

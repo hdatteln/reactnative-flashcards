@@ -16,6 +16,11 @@ You will need the Expo CLI in order to run the application in a simulator;
 You can install this dependency using `npm install -g expo-cli`
 More info on the Expo CLI can be found [here](https://docs.expo.io/versions/latest/workflow/expo-cli/).
 
+### iOS Simulator
+You might need to install the pods first, before running the application in an iOS simulator.
+For this, in a terminal, go the project root and run:
+`cd ios && pod install && cd..`
+
 ### 'Mobile Flashcards' Application
 * Clone or download this project: `git clone https://github.com/hdatteln/reactnative-flashcards.git` 
 * In the project's root directory, run `npm install` to install the required packages
