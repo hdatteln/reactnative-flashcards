@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 const appColors = {
   green: '#609c4f',
   gray: '#dedede',
-  white: '#ffffff'
+  white: '#ffffff',
+  red: '#ff3322'
 };
 
 export default StyleSheet.create({
@@ -109,6 +110,15 @@ export default StyleSheet.create({
     width: 140,
     height: 40,
     backgroundColor: appColors.green,
+    borderRadius: 7,
+    margin: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  quiz2FormBtnRed: {
+    width: 140,
+    height: 40,
+    backgroundColor: appColors.red,
     borderRadius: 7,
     margin: 5,
     justifyContent: 'center',
