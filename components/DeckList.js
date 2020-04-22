@@ -31,8 +31,8 @@ class DeckList extends Component {
     const {navigation} = this.props;
     const {bounceValue} = this.state;
     Animated.sequence([
-      Animated.timing(bounceValue, {duration: 500, toValue: 2}),
-      Animated.spring(bounceValue, {toValue: 1, friction: 4})
+      Animated.timing(bounceValue, {duration: 500, toValue: 2, useNativeDriver: true}),
+      Animated.spring(bounceValue, {toValue: 1, friction: 4, useNativeDriver: true})
     ]).start();
 
     navigation.navigate(
